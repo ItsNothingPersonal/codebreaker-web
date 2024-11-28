@@ -5,6 +5,7 @@
 
 	let decoded: string | undefined = $state();
 	let encoded: string | undefined = $state();
+	let keystring: string | undefined = $state();
 
 	async function handleSubmit() {
 		if (!encoded && !decoded) error(500, 'No encoded or decoded text provided');
@@ -16,7 +17,7 @@
 						.replaceAll(/["'[\]]/g, '')
 						.split(',')
 						.map((num) => parseInt(num, 10)),
-					keystring: 'Sphinx of black quartz, judge my vow'
+					keystring: keystring
 				});
 
 				if (!body.success) {
@@ -44,7 +45,7 @@
 			try {
 				const body = encodeSchema.safeParse({
 					target: decoded,
-					keystring: 'Sphinx of black quartz, judge my vow'
+					keystring: keystring
 				});
 
 				if (!body.success) {
@@ -73,6 +74,17 @@
 </script>
 
 <div class="flex w-full max-w-[33%] flex-col gap-2">
+	<label class="label">
+		<span class="label-text">Keystring</span>
+		<input
+			id="keystring"
+			class="input p-2"
+			bind:value={keystring}
+			type="text"
+			placeholder="Hier den Keystring einfügen"
+		/>
+	</label>
+
 	<label class="label">
 		<span class="label-text">Decoded</span>
 		<textarea

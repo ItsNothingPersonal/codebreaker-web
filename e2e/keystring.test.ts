@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/');
+	await page.locator('#keystring').pressSequentially('Sphinx of black quartz, judge my vow');
 	await page.locator('#decoded').clear();
 	await page.locator('#encoded').clear();
 });
